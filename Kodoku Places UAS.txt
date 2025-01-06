@@ -1,0 +1,194 @@
+CREATE DATABASE kodoku;
+
+USE kodoku;
+
+-- Membuat tabel User
+CREATE TABLE User (
+    ID_User INT PRIMARY KEY AUTO_INCREMENT,
+    Nama VARCHAR(255) NOT NULL,
+    Jenis_kelamin VARCHAR(255) NOT NULL,
+    Alamat VARCHAR(255),
+    Email VARCHAR(255),
+    No_telp VARCHAR(255),
+    Password VARCHAR(255) -- Kolom Password ditambahkan untuk konsistensi
+);
+
+-- Membuat tabel Wc
+CREATE TABLE Wc (
+    ID_wc INT PRIMARY KEY AUTO_INCREMENT,
+    Nama_wc VARCHAR(255) NOT NULL,
+    Deskripsi_Wc VARCHAR(255) NOT NULL,
+    Rating INT NOT NULL
+);
+
+-- Membuat tabel Komentar
+CREATE TABLE Komentar (
+    ID_User INT,
+    ID_wc INT,
+    Isi_komen VARCHAR(255) NOT NULL,
+    PRIMARY KEY (ID_User, ID_wc),
+    FOREIGN KEY (ID_User) REFERENCES User(ID_User) ON DELETE CASCADE,
+    FOREIGN KEY (ID_wc) REFERENCES Wc(ID_wc) ON DELETE CASCADE
+);
+
+-- Membuat tabel Gambar
+CREATE TABLE Gambar (
+    ID_Image INT PRIMARY KEY AUTO_INCREMENT,
+    ID_wc INT,
+    image_url VARCHAR(255) NOT NULL,
+    uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ID_wc) REFERENCES Wc(ID_wc) ON DELETE CASCADE
+);
+
+-- Membuat tabel Lokasi
+CREATE TABLE Lokasi (
+    ID_Lokasi INT PRIMARY KEY AUTO_INCREMENT,
+    ID_wc INT,
+    jalan VARCHAR(255) NOT NULL,
+    Kecamatan VARCHAR(255),
+    Kabupaten_Kota VARCHAR(255) NOT NULL,
+    Provinsi VARCHAR(255) NOT NULL,
+    FOREIGN KEY (ID_wc) REFERENCES Wc(ID_wc) ON DELETE CASCADE
+);
+
+-- Membuat tabel Fasilitas
+CREATE TABLE Fasilitas (
+    ID_User INT,  
+    ID_wc INT,                          
+    Fasilitas VARCHAR(255),             
+    FOREIGN KEY (ID_wc) REFERENCES Wc(ID_wc),
+    FOREIGN KEY (ID_User) REFERENCES User(ID_User) 
+);
+
+
+-- Menambahkan data ke tabel User
+INSERT INTO User (Nama, Jenis_kelamin, Alamat, Email, No_telp, Password) VALUES
+('Andi Wijaya', 'Laki-laki', 'Jakarta Pusat', 'andi.wijaya@gmail.com', '081234567001', 'password123'),
+('Siti Marlina', 'Perempuan', 'Surabaya Timur', 'siti.marlina@gmail.com', '081234567002', 'pass123456'),
+('Budi Santoso', 'Laki-laki', 'Bandung Selatan', 'budi.santoso@gmail.com', '081234567003', '123password'),
+('Ayu Lestari', 'Perempuan', 'Medan Kota', 'ayu.lestari@gmail.com', '081234567004', 'lestari2023'),
+('Teguh Prasetyo', 'Laki-laki', 'Yogyakarta Barat', 'teguh.prasetyo@gmail.com', '081234567005', 'prasetyo!567'),
+('Dewi Kartika', 'Perempuan', 'Bali Selatan', 'dewi.kartika@gmail.com', '081234567006', 'kartika@999'),
+('Rahmat Hidayat', 'Laki-laki', 'Makassar Utara', 'rahmat.hidayat@gmail.com', '081234567007', 'rahmat007'),
+('Indah Wulandari', 'Perempuan', 'Malang Tengah', 'indah.wulandari@gmail.com', '081234567008', 'indahlove'),
+('Ahmad Fauzi', 'Laki-laki', 'Semarang Utara', 'ahmad.fauzi@gmail.com', '081234567009', 'fauzi789'),
+('Rina Amelia', 'Perempuan', 'Denpasar Barat', 'rina.amelia@gmail.com', '081234567010', 'amelia@den'),
+('Eko Saputra', 'Laki-laki', 'Pontianak Selatan', 'eko.saputra@gmail.com', '081234567011', 'saputra123'),
+('Sri Wahyuni', 'Perempuan', 'Palembang Timur', 'sri.wahyuni@gmail.com', '081234567012', 'wahyuni007'),
+('Fajar Nurul', 'Laki-laki', 'Jakarta Selatan', 'fajar.nurul@gmail.com', '081234567013', 'nurulpass'),
+('Putri Ananda', 'Perempuan', 'Batam Tengah', 'putri.ananda@gmail.com', '081234567014', 'putri2024'),
+('Hendra Kurniawan', 'Laki-laki', 'Tangerang Selatan', 'hendra.kurniawan@gmail.com', '081234567015', 'kurniawan88'),
+('Mila Susanti', 'Perempuan', 'Bekasi Barat', 'mila.susanti@gmail.com', '081234567016', 'susanti456'),
+('Dani Setiawan', 'Laki-laki', 'Balikpapan Timur', 'dani.setiawan@gmail.com', '081234567017', 'setiawan123'),
+('Lina Anggraini', 'Perempuan', 'Bandar Lampung', 'lina.anggraini@gmail.com', '081234567018', 'anggraini@2023'),
+('Yusuf Maulana', 'Laki-laki', 'Padang Utara', 'yusuf.maulana@gmail.com', '081234567019', 'maulana#123'),
+('Santi Oktavia', 'Perempuan', 'Pekanbaru Tengah', 'santi.oktavia@gmail.com', '081234567020', 'oktavia.20'),
+('Rizal Arifin', 'Laki-laki', 'Surakarta Barat', 'rizal.arifin@gmail.com', '081234567021', 'arifin78'),
+('Nia Safitri', 'Perempuan', 'Manado Selatan', 'nia.safitri@gmail.com', '081234567022', 'safitri77'),
+('Taufik Rahman', 'Laki-laki', 'Samarinda Utara', 'taufik.rahman@gmail.com', '081234567023', 'rahman001'),
+('Mega Puspita', 'Perempuan', 'Malang Barat', 'mega.puspita@gmail.com', '081234567024', 'puspita99'),
+('Rendi Wibowo', 'Laki-laki', 'Jakarta Barat', 'rendi.wibowo@gmail.com', '081234567025', 'wibowo89'),
+('Nurhayati Sari', 'Perempuan', 'Medan Timur', 'nurhayati.sari@gmail.com', '081234567026', 'nurhayati2024'),
+('Arif Firmansyah', 'Laki-laki', 'Balikpapan Barat', 'arif.firmansyah@gmail.com', '081234567027', 'firmansyah56'),
+('Sari Permata', 'Perempuan', 'Surabaya Selatan', 'sari.permata@gmail.com', '081234567028', 'permata21'),
+('Fikri Ramadhan', 'Laki-laki', 'Yogyakarta Tengah', 'fikri.ramadhan@gmail.com', '081234567029', 'fikri#567'),
+('Rizka Lestari', 'Perempuan', 'Bandung Timur', 'rizka.lestari@gmail.com', '081234567030', 'lestari89'),
+('Bayu Setiawan', 'Laki-laki', 'Batam Timur', 'bayu.setiawan@gmail.com', '081234567031', 'setiawan22'),
+('Tania Salsabila', 'Perempuan', 'Makassar Selatan', 'tania.salsabila@gmail.com', '081234567032', 'salsabila01'),
+('Adi Nugroho', 'Laki-laki', 'Depok Barat', 'adi.nugroho@gmail.com', '081234567033', 'nugroho567'),
+('Maya Kirana', 'Perempuan', 'Tangerang Utara', 'maya.kirana@gmail.com', '081234567034', 'kirana!2023'),
+('Joko Hartono', 'Laki-laki', 'Jakarta Utara', 'joko.hartono@gmail.com', '081234567035', 'hartono88'),
+('Yuni Amalia', 'Perempuan', 'Pontianak Tengah', 'yuni.amalia@gmail.com', '081234567036', 'amalia#77'),
+('Fajar Ramli', 'Laki-laki', 'Semarang Barat', 'fajar.ramli@gmail.com', '081234567037', 'ramli89'),
+('Ani Supriyanti', 'Perempuan', 'Bali Barat', 'ani.supriyanti@gmail.com', '081234567038', 'supriyanti33'),
+('Edi Wahyono', 'Laki-laki', 'Pekanbaru Timur', 'edi.wahyono@gmail.com', '081234567039', 'wahyono2024'),
+('Winda Kartini', 'Perempuan', 'Denpasar Timur', 'winda.kartini@gmail.com', '081234567040', 'kartini99'),
+('Fahmi Nugraha', 'Laki-laki', 'Bandar Lampung Barat', 'fahmi.nugraha@gmail.com', '081234567041', 'nugraha@567'),
+('Desi Anggraeni', 'Perempuan', 'Padang Selatan', 'desi.anggraeni@gmail.com', '081234567042', 'anggraeni123'),
+('Lukman Hakim', 'Laki-laki', 'Surabaya Tengah', 'lukman.hakim@gmail.com', '081234567043', 'hakim@89'),
+('Rosa Kurnia', 'Perempuan', 'Jakarta Timur', 'rosa.kurnia@gmail.com', '081234567044', 'kurnia01'),
+('Bagus Prayitno', 'Laki-laki', 'Bandung Barat', 'bagus.prayitno@gmail.com', '081234567045', 'prayitno@77'),
+('Elsa Fitriani', 'Perempuan', 'Balikpapan Selatan', 'elsa.fitriani@gmail.com', '081234567046', 'fitriani2024'),
+('Dimas Saputra', 'Laki-laki', 'Tangerang Timur', 'dimas.saputra@gmail.com', '081234567047', 'saputra007'),
+('Siska Pertiwi', 'Perempuan', 'Medan Selatan', 'siska.pertiwi@gmail.com', '081234567048', 'pertiwi567'),
+('Liam Walker', 'Laki-laki', 'Jakarta Barat', 'liamwalker@gmail.com', '081234567900', 'password123'),
+('Emma Thomas', 'Perempuan', 'Surabaya Timur', 'emmathomas@gmail.com', '081234567901', 'password123');
+
+-- Menambahkan data ke tabel Wc
+INSERT INTO Wc (Nama_wc, Deskripsi_Wc, Rating) VALUES
+('Toilet Umum Stasiun', 'Toilet bersih di area stasiun Jakarta', 4),
+('Toilet Umum Mall', 'Fasilitas toilet modern di mall Surabaya', 5),
+('Toilet Umum Bandara', 'Toilet dengan akses mudah di bandara Bandung', 3),
+('Toilet Umum Pasar', 'Fasilitas sederhana di pasar Medan', 2),
+('Toilet Umum Terminal', 'Toilet standar di terminal Yogyakarta', 3),
+('Toilet Umum Rest Area', 'Toilet nyaman di rest area Malang', 4),
+('Toilet Umum SPBU', 'Fasilitas bersih di SPBU Semarang', 4),
+('Toilet Umum Kantor', 'Toilet eksklusif di kantor Denpasar', 5),
+('Toilet Umum Taman', 'Toilet umum yang cukup bersih di taman Makassar', 3),
+('Toilet Umum Pantai', 'Toilet bersih dekat pantai Bali', 5);	
+
+-- Menambahkan data ke tabel Komentar
+INSERT INTO Komentar (ID_User, ID_wc, Isi_komen) VALUES
+(1, 1, 'Bersih dan nyaman.'),
+(2, 2, 'Sangat bagus dan harum.'),
+(3, 3, 'Kurang bersih, perlu perawatan.'),
+(4, 4, 'Bau tidak sedap, mohon diperbaiki.'),
+(5, 5, 'Standar, tapi cukup untuk digunakan.'),
+(6, 6, 'Nyaman dan bersih.'),
+(7, 7, 'Airnya kurang lancar.'),
+(8, 8, 'Tempatnya bersih, petugas ramah.'),
+(9, 9, 'Lumayan, cukup bersih.'),
+(10, 10, 'Sangat bersih dan nyaman.'),
+(1, 2, 'Bagus, lokasi strategis.'),
+(2, 3, 'Perlu perbaikan kecil di beberapa bagian.'),
+(3, 4, 'Kurang nyaman, bau menyengat.'),
+(4, 5, 'Bersih dan cukup lengkap.'),
+(5, 6, 'Airnya sangat lancar, bagus!'),
+(6, 7, 'Bisa lebih baik jika dijaga kebersihannya.'),
+(7, 8, 'Tempat bagus, fasilitas memadai.'),
+(8, 9, 'Rapi dan bersih.'),
+(9, 10, 'Sangat nyaman, saya suka.'),
+(10, 1, 'Kondisi sangat baik dan bersih.');
+
+INSERT INTO gambar (ID_wc, image_url, uploaded_at) VALUES
+(1, 'https://example.com/image1.jpg', '2024-12-01 10:00:00'),
+(2, 'https://example.com/image2.jpg', '2024-12-02 11:00:00'),
+(3, 'https://example.com/image3.jpg', '2024-12-03 12:00:00'),
+(4, 'https://example.com/image4.jpg', '2024-12-04 13:00:00'),
+(5, 'https://example.com/image5.jpg', '2024-12-05 14:00:00'),
+(6, 'https://example.com/image6.jpg', '2024-12-06 15:00:00'),
+(7, 'https://example.com/image7.jpg', '2024-12-07 16:00:00'),
+(8, 'https://example.com/image8.jpg', '2024-12-08 17:00:00'),
+(9, 'https://example.com/image9.jpg', '2024-12-09 18:00:00'),
+(10, 'https://example.com/image10.jpg', '2024-12-10 19:00:00');
+
+INSERT INTO lokasi (ID_wc, jalan, Kecamatan, Kabupaten_Kota, Provinsi) VALUES
+(1, 'Jalan Raya Sudirman', 'Setiabudi', 'Jakarta Selatan', 'DKI Jakarta'),
+(2, 'Jalan Gajah Mada', 'Kota Barat', 'Surakarta', 'Jawa Tengah'),
+(3, 'Jalan Diponegoro', 'Wirobrajan', 'Yogyakarta', 'DI Yogyakarta'),
+(4, 'Jalan Ahmad Yani', 'Tenggilis', 'Surabaya', 'Jawa Timur'),
+(5, 'Jalan Braga', 'Sumur Bandung', 'Bandung', 'Jawa Barat'),
+(6, 'Jalan Merdeka', 'Pontianak Selatan', 'Pontianak', 'Kalimantan Barat'),
+(7, 'Jalan Veteran', 'Balikpapan Tengah', 'Balikpapan', 'Kalimantan Timur'),
+(8, 'Jalan Manggis', 'Denpasar Selatan', 'Denpasar', 'Bali'),
+(9, 'Jalan Basuki Rahmat', 'Palembang Selatan', 'Palembang', 'Sumatera Selatan'),
+(10, 'Jalan Zainal Abidin Pagar Alam', 'Kedaton', 'Bandar Lampung', 'Lampung');
+
+INSERT INTO Fasilitas (ID_wc, Fasilitas) VALUES
+(1, 'Toilet Duduk'),
+(1, 'Toilet Jongkok'),
+(2, 'Tissue Toilet'),
+(2, 'Sabun Cuci Tangan'),
+(3, 'Air Bersih'),
+(3, 'Kran Air'),
+(4, 'Tempat Sampah'),
+(4, 'Cermin'),
+(5, 'Pengering Tangan'),
+(5, 'Hand Sanitizer'),
+(6, 'Penerangan yang Baik'),
+(7, 'Loker Barang'),
+(8, 'Wastafel'),
+(9, 'Area Ramah Disabilitas'),
+(10, 'Pintu yang Tertutup Rapat');
+
+
